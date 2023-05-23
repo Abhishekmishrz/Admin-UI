@@ -1,0 +1,48 @@
+.list{
+    display: flex;
+    justify-content: space-between;
+}
+.Search{
+    margin: 10px
+    
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  input.checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.edit-btn{
+  padding: auto;
+  min-width: 5px;
+  /* padding: 0px !important; */
+}
+.delete-btn{
+  padding: auto;
+  min-width: 5px;
+  /* padding: 0px !important; */
+}
+.delete-btn{
+  text-transform: none !important;
+  text-align: left;
+  
+}
+.pagination{
+  display :flex ;
+  justify-content: center;
+  padding: 20px;
+}
+
+  /* tr:nth-child(even) {
+    background-color: #dddddd;
+  } */
+  
