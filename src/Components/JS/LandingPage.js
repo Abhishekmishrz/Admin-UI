@@ -5,17 +5,13 @@ import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import Pagination from "@mui/material/Pagination";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactPaginate from 'react-paginate';
+import { faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import Stack from "@mui/material/Stack";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import List from "@mui/material/List";
-import ReactPaginate from 'react-paginate';
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
+
 
 import axios from "axios";
 import Grid from "@mui/material/Grid";
@@ -26,6 +22,17 @@ const LandingPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [dataList, setDataList] = useState([]);
   const [search, setSearch] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const itemsPerPage = 10;
+  const startIndex = pageNumber * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const handlePageChange = ({ selected }) => {
+    setPageNumber(selected);
+    console.log("selected", selected)
+  };
+
 
   const PerformApiCall = async () => {
     const URL =
@@ -51,6 +58,7 @@ const LandingPage = () => {
   useEffect(() => {
     PerformApiCall();
   }, [1]);
+  const editDetails = () => { }
 
   return (
     <>
@@ -71,7 +79,7 @@ const LandingPage = () => {
             <th>Action</th>
           </tr>
 
-          
+
           {dataList
             .filter((list) => {
               if (search === "") return list;
@@ -83,6 +91,7 @@ const LandingPage = () => {
                 return dataList;
               }
             })
+            .slice(startIndex, endIndex)
             .map((list) => (
               <tr>
                 <td>
@@ -93,37 +102,36 @@ const LandingPage = () => {
                 <td>{list.email}</td>
                 <td>{list.role}</td>
                 <td>
-                  <Button className="edit-btn" ><BorderColorOutlinedIcon/></Button>
-                  <Button className="delete-btn"><DeleteOutlineIcon/></Button>
+                  <Button className="edit-btn" onClick={editDetails}><BorderColorOutlinedIcon /></Button>
+                  <Button className="delete-btn"><DeleteOutlineIcon /></Button>
                 </td>
               </tr>
             ))}
-          
+
         </table>
       </div>
-      {/* <div> */}
-        
-        <Pagination className="pagination" count={dataList.length} color="primary" showFirstButton showLastButton /> 
+      <div className="footer">
+        <Button className="selected-delete" >Delete Selected</Button>
         <ReactPaginate
-        // previousLabel={<FaAngleDoubleLeft />}
-        // nextLabel={<FaAngleDoubleRight />}
-        breakLabel="..."
-        pageCount={dataList.length}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        // onPageChange={handlePageChange}
-        containerClassName="pagination"
-        activeClassName="active"
-      />
+          previousLabel={<FontAwesomeIcon icon={faChevronLeft} />}
+          nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
+          pageCount={Math.ceil(dataList.length / itemsPerPage)}
+          onPageChange={handlePageChange}
+          containerClassName={'pagination'}
+          activeClassName={'active'}
 
-        <Button className="delete-btn" >Delete Selected</Button>
+        />
 
-      {/* </div> */}
-     
-        
-        
-        
-      
+
+
+
+
+      </div>
+
+
+
+
+
     </>
   );
 };

@@ -31,18 +31,50 @@ td, th {
   min-width: 5px;
   /* padding: 0px !important; */
 }
-.delete-btn{
+.selected-delete{
   text-transform: none !important;
-  text-align: left;
+  text-align: left !important;
+  border: #333 !important;
+  margin: 50px !important;
+  background-color: rgb(255, 77, 0) !important;
+  font-size: 15px !important;
+  color: whitesmoke !important;
+  border-radius: 50px  !important;
   
 }
-.pagination{
-  display :flex ;
-  justify-content: center;
-  padding: 20px;
-}
 
-  /* tr:nth-child(even) {
-    background-color: #dddddd;
-  } */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    
+  }
+  
+  .pagination li {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+    
+  }
+  
+  .pagination li a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 50px;
+  }
+  
+  .pagination li.active a {
+    color: #fff;
+    background-color: #007bff;
+  }
+  .footer{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-around;
+
+  }
+  
   

@@ -20,7 +20,7 @@ const SearchBar = () => {
             )
           }}
 
-          // onChange={(event=>debounceSearch(event, debounceTimeout))}
+          // onChange={()=>}
         />
       </div>
     </>
