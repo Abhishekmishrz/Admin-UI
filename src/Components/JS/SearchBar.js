@@ -1,7 +1,8 @@
 import { Button, InputAdornment, TextField, Stack } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import "../CSS/SearchBar.css"
-const SearchBar = () => {
+const SearchBar = ({ handleClick }) => {
+  
   return (
     <>
       <div>
@@ -19,8 +20,7 @@ const SearchBar = () => {
               </InputAdornment>
             )
           }}
-
-          // onChange={()=>}
+          onChange={(e)=>handleClick(e)}
         />
       </div>
     </>
