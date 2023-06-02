@@ -1,4 +1,3 @@
-// Pagination.js
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import Button from '@mui/material/Button';

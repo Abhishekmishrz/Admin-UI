@@ -1,4 +1,3 @@
-// LandingPage.js
 import "../CSS/LandingPage.css";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -34,7 +33,7 @@ const LandingPage = () => {
       if (e.response && e.response.status === 500) {
         enqueueSnackbar(e.response.data.message, { variant: 'error' });
       } else {
-        enqueueSnackbar('Result not found. Check that the backend is running', { variant: 'error' });
+        enqueueSnackbar('Result not found. Check that the backend is running', { variant: 'success' });
       }
     }
   };
@@ -67,11 +66,13 @@ const LandingPage = () => {
     const updatedData = dataList.filter((item) => !selectedItems.includes(item.id));
     setDataList(updatedData);
     setSelectedItems([]);
+    enqueueSnackbar('Result not found. Check that the backend is running', { variant: 'success' });
   };
 
   const handleDeleteRow = (id) => {
     const remainingMembers = dataList.filter((member) => member.id !== id);
     setDataList(remainingMembers);
+    enqueueSnackbar('Result not found. Check that the backend is running', { variant: 'success' });
   };
 
   const editDetails = (id) => {
