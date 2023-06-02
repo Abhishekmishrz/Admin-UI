@@ -2,9 +2,10 @@ import SearchBar from "./SearchBar";
 import "../CSS/LandingPage.css";
 import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactPaginate from 'react-paginate';
 import Fragment from 'react-dot-fragment';
-import Pagination from "./Pagination";
-import Table from "./Table";
+import { faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import axios from "axios";
@@ -52,7 +53,7 @@ const LandingPage = () => {
   const pageCount = Math.ceil(dataList.length / itemsPerPage);
   const displayedData = dataList.slice(startIndex, endIndex);
 
-  const handlePageChange = ({ selected }) => {
+  const handlePageChange = ( {selected} ) => {
     setPageNumber(selected);
     setSelectedItems([]);
     console.log("selected", selected)
@@ -61,7 +62,7 @@ const LandingPage = () => {
     setPageNumber(0);
     // setSelectedItems([]);
   };
-
+  
   const handleLastPage = () => {
     setPageNumber(pageCount - 1);
     // setSelectedItems([]);
@@ -95,7 +96,6 @@ const LandingPage = () => {
     const updatedData = dataList.filter((item) => !selectedItems.includes(item.id));
     setDataList(updatedData);
     setSelectedItems([]);
-    
   };
 
   const handleDeleteRow = (id) => {
@@ -148,26 +148,6 @@ const LandingPage = () => {
       <div className="Search">
         <SearchBar handleClick={handleClick} />
       </div>
-      {/* <div>
-        <Table
-          dataList={dataList}
-          displayedData={displayedData.slice(startIndex, endIndex)}
-          selectedItems={selectedItems}
-          handleCheckboxChange={handleCheckboxChange}
-          handleSingleCheckboxChange={handleSingleCheckboxChange}
-          handleDeleteRow={handleDeleteRow}
-          editDetails={editDetails}
-          editedRowId={editedRowId}
-          editedName={editedName}
-          editedEmail={editedEmail}
-          editedRole={editedRole}
-          handleSaveEdit={handleSaveEdit}
-          handleCancelEdit={handleCancelEdit}
-          setEditedName={setEditedName}
-          setEditedEmail={setEditedEmail}
-          setEditedRole={setEditedRole}
-        />
-      </div> */}
 
       <div>
         <table className="table">
@@ -184,6 +164,7 @@ const LandingPage = () => {
             <th> Role</th>
             <th>Action</th>
           </tr>
+
 
           {dataList
             .filter((list) => {
@@ -261,13 +242,26 @@ const LandingPage = () => {
       </div>
       <div className="footer">
         <Button className="selected-delete" onClick={handleDeleteSelected}> Delete Selected </Button>
-        <Pagination
-          pageNumber={pageNumber}
+        {/* <div> */}
+        <Button className="btn-page" disabled={pageNumber === 0} onClick={() => handleHomePage()}>
+          <FontAwesomeIcon icon={faAngleDoubleLeft} />
+        </Button>
+        <ReactPaginate
+          previousLabel={<FontAwesomeIcon icon={faChevronLeft} />}
+          nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
           pageCount={pageCount}
-          handlePageChange={handlePageChange}
-          handleHomePage={handleHomePage}
-          handleLastPage={handleLastPage}
+          onPageChange={handlePageChange}
+          containerClassName={'pagination'}
+          activeClassName={'active'}
+          disabledClassName={'disabled'}
+          forcePage={pageNumber}
         />
+
+        <Button className="btn-page" disabled={pageNumber === pageCount - 1} onClick={() => handleLastPage()} >
+          <FontAwesomeIcon icon={faAngleDoubleRight} />
+        </Button>
+        {/* </div> */}
+
       </div>
 
     </>

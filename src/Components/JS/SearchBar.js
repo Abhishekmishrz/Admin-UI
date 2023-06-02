@@ -1,4 +1,4 @@
-import { Button, InputAdornment, TextField, Stack } from "@mui/material";
+import {  InputAdornment, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import "../CSS/SearchBar.css"
 const SearchBar = ({ handleClick }) => {
