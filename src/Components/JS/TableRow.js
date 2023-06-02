@@ -1,86 +1,82 @@
-import React from "react";
-import { Button } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+// TableRow.js
+import React from 'react';
+import Button from '@mui/material/Button';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import Fragment from 'react-dot-fragment';
 
 const TableRow = ({
-    item,
-    selectedItems,
-    handleSingleCheckboxChange,
-    handleDeleteRow,
-    editDetails,
-    editedRowId,
-    editedName,
-    editedEmail,
-    editedRole,
-    handleSaveEdit,
-    handleCancelEdit,
-    setEditedName, 
-    setEditedEmail,
-    setEditedRole
+  member,
+  isSelected,
+  handleSingleCheckboxChange,
+  handleDeleteRow,
+  editDetails,
+  editedRowId,
+  editedName,
+  editedEmail,
+  editedRole,
+  handleSaveEdit,
+  handleCancelEdit,
+  setEditedName,
+  setEditedEmail,
+  setEditedRole,
 }) => {
   return (
-    <tr
-            key={item.id}
-            className={selectedItems.includes(item.id) ? "selected" : ""}
-          >
+    <tr className={isSelected ? 'selected' : ''}>
       <td>
         <input
           type="checkbox"
           className="checkbox"
-          checked={selectedItems.includes(item.id)}
-          onChange={() => handleSingleCheckboxChange(item.id)}
+          checked={isSelected}
+          onChange={() => handleSingleCheckboxChange(member.id)}
         />
       </td>
-      <td>{item.id}</td>
+      <td>{member.id}</td>
       <td>
-        {editedRowId === item.id ? (
+        {editedRowId === member.id ? (
           <input
             type="text"
             value={editedName}
             onChange={(e) => setEditedName(e.target.value)}
           />
         ) : (
-          item.name
+          member.name
         )}
       </td>
       <td>
-        {editedRowId === item.id ? (
+        {editedRowId === member.id ? (
           <input
             type="text"
             value={editedEmail}
             onChange={(e) => setEditedEmail(e.target.value)}
           />
         ) : (
-          item.email
+          member.email
         )}
       </td>
       <td>
-        {editedRowId === item.id ? (
+        {editedRowId === member.id ? (
           <input
             type="text"
             value={editedRole}
             onChange={(e) => setEditedRole(e.target.value)}
           />
         ) : (
-          item.role
+          member.role
         )}
       </td>
       <td>
-        {editedRowId === item.id ? (
-          <>
-            <Button onClick={() => handleSaveEdit(item.id)}>Save</Button>
+        {editedRowId === member.id ? (
+          <Fragment>
+            <Button onClick={() => handleSaveEdit(member.id)}>Save</Button>
             <Button onClick={handleCancelEdit}>Cancel</Button>
-          </>
+          </Fragment>
         ) : (
-          <Button className="edit-btn" onClick={() => editDetails(item.id)}>
+          <Button className="edit-btn" onClick={() => editDetails(member.id)}>
             <BorderColorOutlinedIcon />
           </Button>
         )}
-        <Button
-          className="delete-btn"
-          onClick={() => handleDeleteRow(item.id)}
-        >
+        <Button className="delete-btn" onClick={() => handleDeleteRow(member.id)}>
           <DeleteOutlineIcon />
         </Button>
       </td>

@@ -1,18 +1,24 @@
-import React from "react";
+// Pagination.js
+import React from 'react';
+import ReactPaginate from 'react-paginate';
+import Button from '@mui/material/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
-import Button from '@mui/material/Button';
-import ReactPaginate from 'react-paginate';
 
-const Pagination = ({
-  pageNumber,
-  pageCount,
-  handlePageChange,
-  handleHomePage,
-  handleLastPage
-}) => {
+const Pagination = ({ pageNumber, pageCount, handlePageChange, handleDeleteSelected }) => {
+  const handleHomePage = () => {
+    handlePageChange({ selected: 0 });
+  };
+
+  const handleLastPage = () => {
+    handlePageChange({ selected: pageCount - 1 });
+  };
+
   return (
-    <>
+    <div className="footer">
+      <Button className="selected-delete" onClick={handleDeleteSelected}>
+        Delete Selected
+      </Button>
       <Button className="btn-page" disabled={pageNumber === 0} onClick={handleHomePage}>
         <FontAwesomeIcon icon={faAngleDoubleLeft} />
       </Button>
@@ -29,7 +35,7 @@ const Pagination = ({
       <Button className="btn-page" disabled={pageNumber === pageCount - 1} onClick={handleLastPage}>
         <FontAwesomeIcon icon={faAngleDoubleRight} />
       </Button>
-    </>
+    </div>
   );
 };
 
